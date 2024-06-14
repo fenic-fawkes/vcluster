@@ -675,3 +675,8 @@ func IsTimeEqualOrAfter(start, end time.Time) bool {
 }
 
 const EmptyConfigParamErrMsg = "configuration parameter must not be empty"
+
+func IsK8sEnvironment() bool {
+	port, portSet := os.LookupEnv(kubernetesPort)
+	return portSet && port != ""
+}

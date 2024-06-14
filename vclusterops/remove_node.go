@@ -49,7 +49,7 @@ func (options *VRemoveNodeOptions) setDefaultValues() {
 }
 
 func (options *VRemoveNodeOptions) validateRequiredOptions(logger vlog.Printer) error {
-	err := options.validateBaseOptions(commandRemoveNode, logger)
+	err := options.validateBaseOptions(RemoveNodeCmd, logger)
 	if err != nil {
 		return err
 	}

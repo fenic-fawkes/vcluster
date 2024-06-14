@@ -98,7 +98,7 @@ func (options *VCreateDatabaseOptions) setDefaultValues() {
 
 func (options *VCreateDatabaseOptions) validateRequiredOptions(logger vlog.Printer) error {
 	// validate base options
-	err := options.validateBaseOptions(commandCreateDB, logger)
+	err := options.validateBaseOptions(CreateDBCmd, logger)
 	if err != nil {
 		return err
 	}
@@ -431,11 +431,12 @@ func (vcc VClusterCommands) produceCreateDBBootstrapInstructions(
 
 	nmaStartNodeOp := makeNMAStartNodeOp(bootstrapHost, options.StartUpConf)
 
-	httpsPollBootstrapNodeStateOp, err := makeHTTPSPollNodeStateOpWithTimeoutAndCommand(bootstrapHost, true, /* useHTTPPassword */
-		options.UserName, options.Password, options.TimeoutNodeStartupSeconds, CreateDBCmd)
+	httpsPollBootstrapNodeStateOp, err := makeHTTPSPollNodeStateOp(bootstrapHost, true, /* useHTTPPassword */
+		options.UserName, options.Password, options.TimeoutNodeStartupSeconds)
 	if err != nil {
 		return instructions, err
 	}
+	httpsPollBootstrapNodeStateOp.cmdType = CreateDBCmd
 
 	instructions = append(instructions,
 		&nmaStartNodeOp,
@@ -508,11 +509,12 @@ func (vcc VClusterCommands) produceAdditionalCreateDBInstructions(vdb *VCoordina
 	username := options.UserName
 
 	if !options.SkipStartupPolling {
-		httpsPollNodeStateOp, err := makeHTTPSPollNodeStateOpWithTimeoutAndCommand(hosts, true, username, options.Password,
-			options.TimeoutNodeStartupSeconds, CreateDBCmd)
+		httpsPollNodeStateOp, err := makeHTTPSPollNodeStateOp(hosts, true, username, options.Password,
+			options.TimeoutNodeStartupSeconds)
 		if err != nil {
 			return instructions, err
 		}
+		httpsPollNodeStateOp.cmdType = CreateDBCmd
 		instructions = append(instructions, &httpsPollNodeStateOp)
 	}
 

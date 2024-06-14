@@ -27,6 +27,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -375,6 +376,17 @@ func ParseHostList(hosts *[]string) error {
 func GetEnv(key, fallback string) string {
 	if value, ok := os.LookupEnv(key); ok {
 		return value
+	}
+	return fallback
+}
+
+// get int value of env var with a fallback value
+func GetEnvInt(key string, fallback int) int {
+	if value, ok := os.LookupEnv(key); ok {
+		if intValue, err := strconv.Atoi(value); err == nil {
+			return intValue
+		}
+		// failed to retrieve env value, should use fallback value
 	}
 	return fallback
 }

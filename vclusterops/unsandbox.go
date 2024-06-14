@@ -53,7 +53,7 @@ func (options *VUnsandboxOptions) setDefaultValues() {
 }
 
 func (options *VUnsandboxOptions) validateRequiredOptions(logger vlog.Printer) error {
-	err := options.validateBaseOptions(commandUnsandboxSC, logger)
+	err := options.validateBaseOptions(UnsandboxSCCmd, logger)
 	if err != nil {
 		return err
 	}
@@ -213,7 +213,7 @@ func (vcc *VClusterCommands) produceUnsandboxSCInstructions(options *VUnsandboxO
 
 	// Get all up nodes
 	httpsGetUpNodesOp, err := makeHTTPSGetUpScNodesOp(options.DBName, options.Hosts,
-		usePassword, username, options.Password, UnsandboxCmd, options.SCName)
+		usePassword, username, options.Password, UnsandboxSCCmd, options.SCName)
 	if err != nil {
 		return instructions, err
 	}

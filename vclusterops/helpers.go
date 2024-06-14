@@ -187,7 +187,7 @@ func getInitiatorHostInCluster(name, sandbox, scname string, vdb *VCoordinationD
 // or a sandbox
 func getInitiatorHostForReplication(name, sandbox string, hosts []string, vdb *VCoordinationDatabase) ([]string, error) {
 	// if we only got one host, trust the caller
-	if len(hosts) == 1 {
+	if isK8sEnvironment() {
 		return hosts, nil
 	}
 	// source hosts will be :

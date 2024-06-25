@@ -89,12 +89,23 @@ func (op *httpsGetNodesInfoOp) shouldUseResponse(host string, nodesStates *nodes
 	// should use a response from a non-sandboxed node to build vdb in most cases, i.e.,
 	// create db, remove node, remove subcluster, add node and unsandbox;
 	// there is one case that don't care about where the response is from: start node
-	responseSandbox := ""
+	responseSandbox := util.MainClusterSandbox
+	const invalidSbName = "invalid sb name"
 	for _, node := range nodesStates.NodeList {
 		if node.Address == host {
 			responseSandbox = node.Sandbox
 			break
+		} else if node.State == util.NodeUpState {
+			if responseSandbox != util.MainClusterSandbox && responseSandbox != node.Sandbox {
+				// if for some reason we received data on multiple sandboxes assume main cluster
+				responseSandbox = invalidSbName
+				continue
+			}
+			responseSandbox = node.Sandbox
 		}
+	}
+	if responseSandbox == invalidSbName {
+		responseSandbox = ""
 	}
 	// continue to parse next response if a response from main cluster node is expected
 	if responseSandbox != "" && !op.allowUseSandboxResponse {

@@ -563,8 +563,6 @@ func constructCmds() []*cobra.Command {
 		makeCmdCreateConnection(),
 		// hidden cmds (for internal testing only)
 		makeCmdPromoteSandbox(),
-
-		makeCmdCheckVClusterServerPid(),
 	}
 }
 

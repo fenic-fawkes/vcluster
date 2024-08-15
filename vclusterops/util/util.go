@@ -46,6 +46,27 @@ type FetchAllEnvVars interface {
 }
 
 const (
+	NodeInfoCountMismatch = "[%s] expect one node's information, but got %d nodes' information from HTTPS /v1/nodes/<host> endpoint on host %s"
+	DepotSizeHint         = "integer%, which expresses the depot size as a percentage of the total disk size."
+	DepotSizeKMGTMsg      = "integer{K|M|G|T}, where K is kilobytes, M is megabytes, G is gigabytes, and T is terabytes.\n"
+	DepotFmtMsg           = "Size of depot in one of the following formats:\n"
+	TimeToWaitToClose     = "The time to wait, in seconds, for user connections to close on their own.\n"
+	TimeExpire            = "When the time expires, user connections are automatically closed and the database is hut down.\n"
+	InfiniteWaitTime      = "If the value is negative, VCluster waits indefinitely until all user connections close."
+	CloseAllConns         = "If set to 0, VCluster closes all user connections immediately.\n"
+	Default               = "Default: "
+	FailToWriteToConfig   = "Failed to write the configuration file: "
+	CallCommand           = "Calling method Run() for command "
+	DBInfo                = "because we cannot retrieve the correct database information"
+	CommStorageLoc        = "communal storage location is not specified"
+	CommStorageFail       = "failed to retrieve the communal storage location"
+	SubclustersEndpoint   = "subclusters/"
+	ShutDownEndpoint      = "/shutdown"
+	NodesEndpoint         = "nodes/"
+	DropEndpoint          = "/drop"
+)
+
+const (
 	keyValueArrayLen = 2
 	ipv4Str          = "IPv4"
 	ipv6Str          = "IPv6"
@@ -223,9 +244,8 @@ func ResolveToAbsPath(path string) (string, error) {
 		return homeDir, nil
 	} else if strings.HasPrefix(path, "~/") {
 		return filepath.Join(homeDir, path[2:]), nil
-	} else {
-		return "", fmt.Errorf("invalid path")
 	}
+	return "", fmt.Errorf("invalid path")
 }
 
 // IP util functions

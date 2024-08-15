@@ -29,7 +29,7 @@ func TestVGetConfigurationParameterOptions_validateParseOptions(t *testing.T) {
 	testPassword := "get-config-test-password" //nolint:gosec
 	testSandbox := "get-config-test-sandbox"
 	testDBName := "get_config_test_dbname"
-	testUsername := "get-config-test-username" //nolint:gosec
+	testUsername := "get-config-test-username"
 	testConfigParameter := "get-config-test-parameter"
 	testLevel := "get-config-test-level"
 

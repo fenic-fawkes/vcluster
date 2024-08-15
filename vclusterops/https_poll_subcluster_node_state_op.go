@@ -89,7 +89,7 @@ func (op *httpsPollSubclusterNodeStateOp) setupClusterHTTPRequest(hosts []string
 		httpRequest := hostHTTPRequest{}
 		httpRequest.Method = GetMethod
 		httpRequest.Timeout = defaultHTTPSRequestTimeoutSeconds
-		httpRequest.buildHTTPSEndpoint("nodes/" + host)
+		httpRequest.buildHTTPSEndpoint(util.NodesEndpoint + host)
 		if op.useHTTPPassword {
 			httpRequest.Password = op.httpsPassword
 			httpRequest.Username = op.userName

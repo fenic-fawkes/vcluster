@@ -39,6 +39,7 @@ const (
 	AddNodeSyncCat
 	StartNodeSyncCat
 	RemoveNodeSyncCat
+	PollSubclusterStateCmd
 )
 
 var cmdStringMap = map[CmdType]string{

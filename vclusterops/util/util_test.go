@@ -29,6 +29,8 @@ import (
 
 type NMAHealthOpResponse map[string]string
 
+const InvalChar = "invalid character in "
+
 func redirectLog() (*bytes.Buffer, vlog.Printer) {
 	// redirect log to a local bytes.Buffer
 	var logBuffer bytes.Buffer
@@ -268,16 +270,16 @@ func TestValidateName(t *testing.T) {
 
 	// negative cases
 	err = ValidateName("test$db", obj, false)
-	assert.ErrorContains(t, err, "invalid character in "+obj+" name: $")
+	assert.ErrorContains(t, err, InvalChar+obj+" name: $")
 
 	err = ValidateName("[db1]", obj, false)
-	assert.ErrorContains(t, err, "invalid character in "+obj+" name: [")
+	assert.ErrorContains(t, err, InvalChar+obj+" name: [")
 
 	err = ValidateName("!!??!!db1", obj, false)
-	assert.ErrorContains(t, err, "invalid character in "+obj+" name: !")
+	assert.ErrorContains(t, err, InvalChar+obj+" name: !")
 
 	err = ValidateName("test-db", obj, false)
-	assert.ErrorContains(t, err, "invalid character in "+obj+" name: -")
+	assert.ErrorContains(t, err, InvalChar+obj+" name: -")
 
 	err = ValidateName("test-db", obj, true)
 	assert.Nil(t, err)

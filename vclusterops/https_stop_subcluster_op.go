@@ -64,7 +64,7 @@ func (op *httpsStopSCOp) setupClusterHTTPRequest(hosts []string) error {
 	for _, host := range hosts {
 		httpRequest := hostHTTPRequest{}
 		httpRequest.Method = PostMethod
-		httpRequest.buildHTTPSEndpoint("subclusters/" + op.scName + "/shutdown")
+		httpRequest.buildHTTPSEndpoint(util.SubclustersEndpoint + op.scName + util.ShutDownEndpoint)
 		if op.useHTTPPassword {
 			httpRequest.Password = op.httpsPassword
 			httpRequest.Username = op.userName

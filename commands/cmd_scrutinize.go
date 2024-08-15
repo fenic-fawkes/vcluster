@@ -27,6 +27,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/vertica/vcluster/vclusterops"
+	"github.com/vertica/vcluster/vclusterops/util"
 	"github.com/vertica/vcluster/vclusterops/vlog"
 	"github.com/vertica/vertica-kubernetes/pkg/secrets"
 )
@@ -49,6 +50,7 @@ const (
 const (
 	databaseName    = "DATABASE_NAME"
 	catalogPathPref = "CATALOG_PATH"
+	withFmt         = "with the format: "
 )
 
 // secretRetriever is an interface for retrieving secrets.
@@ -127,21 +129,21 @@ func (c *CmdScrutinize) setLocalFlags(cmd *cobra.Command) {
 		"log-age-oldest-time",
 		"",
 		"Timestamp of the maximum age of archived Vertica log files to collect \n"+
-			"with the format: "+vclusterops.ScrutinizeHelpTimeFormatDesc,
+			withFmt+vclusterops.ScrutinizeHelpTimeFormatDesc,
 	)
 	cmd.Flags().StringVar(
 		&c.sOptions.LogAgeNewestTime,
 		"log-age-newest-time",
 		"",
 		"Timestamp of the minimum age of archived Vertica log files to collect "+
-			"with the format: "+vclusterops.ScrutinizeHelpTimeFormatDesc,
+			withFmt+vclusterops.ScrutinizeHelpTimeFormatDesc,
 	)
 	cmd.Flags().IntVar(
 		&c.sOptions.LogAgeHours,
 		"log-age-hours",
 		vclusterops.ScrutinizeLogMaxAgeHoursDefault,
 		"The maximum age, in hours, of archived Vertica log files to collect."+
-			"Default: "+fmt.Sprint(vclusterops.ScrutinizeLogMaxAgeHoursDefault),
+			util.Default+fmt.Sprint(vclusterops.ScrutinizeLogMaxAgeHoursDefault),
 	)
 	cmd.MarkFlagsMutuallyExclusive("log-age-hours", "log-age-oldest-time")
 	cmd.MarkFlagsMutuallyExclusive("log-age-hours", "log-age-newest-time")

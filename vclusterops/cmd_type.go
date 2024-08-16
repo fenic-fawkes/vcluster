@@ -77,6 +77,7 @@ var cmdStringMap = map[CmdType]string{
 	AddNodeSyncCat:               "add_node_sync_cat",
 	StartNodeSyncCat:             "start_node_sync_cat",
 	RemoveNodeSyncCat:            "remove_node_sync_cat",
+	PollSubclusterStateCmd:       "poll_subcluster_state",
 }
 
 func (cmd CmdType) CmdString() string {

@@ -189,7 +189,7 @@ func (c *CmdSandboxSubcluster) Run(vcc vclusterops.ClusterCommands) error {
 
 	options.DatabaseOptions.Hosts = options.SCHosts
 	pollOpts := vclusterops.VPollSubclusterStateOptions{DatabaseOptions: options.DatabaseOptions,
-		SkipOptionsValidation: true, SCName: options.SCName, Up: true}
+		SkipOptionsValidation: true, SCName: options.SCName}
 	err = vcc.VPollSubclusterState(&pollOpts)
 	if err != nil {
 		vcc.LogError(err, "Failed to wait for sandboxed subcluster to come up")

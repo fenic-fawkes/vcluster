@@ -27,7 +27,6 @@ type VPollSubclusterStateOptions struct {
 
 	SkipOptionsValidation bool
 	SCName                string
-	Up                    bool
 }
 
 func VPollSubclusterStateOptionsFactory() VPollSubclusterStateOptions {
@@ -40,7 +39,6 @@ func VPollSubclusterStateOptionsFactory() VPollSubclusterStateOptions {
 
 func (options *VPollSubclusterStateOptions) setDefaultValues() {
 	options.DatabaseOptions.setDefaultValues()
-	options.Up = true
 }
 
 func (options *VPollSubclusterStateOptions) validateParseOptions(logger vlog.Printer) error {
@@ -118,14 +116,8 @@ func (vcc *VClusterCommands) producePollSubclusterStateInstructions(options *VPo
 		}
 	}
 
-	var httpsPollSubclusterNodeOp httpsPollSubclusterNodeStateOp
-	if options.Up {
-		httpsPollSubclusterNodeOp, err = makeHTTPSPollSubclusterNodeStateUpOp(options.Hosts, options.SCName,
-			usePassword, options.UserName, options.Password)
-	} else {
-		httpsPollSubclusterNodeOp, err = makeHTTPSPollSubclusterNodeStateDownOp(options.Hosts, options.SCName,
-			usePassword, options.UserName, options.Password)
-	}
+	httpsPollSubclusterNodeOp, err := makeHTTPSPollSubclusterNodeStateUpOp(options.Hosts, options.SCName,
+		usePassword, options.UserName, options.Password)
 	if err != nil {
 		return
 	}

@@ -548,6 +548,7 @@ type ClusterCommands interface {
 	VFetchCoordinationDatabase(options *VFetchCoordinationDatabaseOptions) (VCoordinationDatabase, error)
 	VFetchNodesDetails(options *VFetchNodesDetailsOptions) (NodesDetails, error)
 	VFetchNodeState(options *VFetchNodeStateOptions) ([]NodeInfo, error)
+	VGetDrainingStatus(options *VGetDrainingStatusOptions) (DrainingStatusList, error)
 	VInstallPackages(options *VInstallPackagesOptions) (*InstallPackageStatus, error)
 	VPollSubclusterState(options *VPollSubclusterStateOptions) error
 	VPromoteSandboxToMain(options *VPromoteSandboxToMainOptions) error

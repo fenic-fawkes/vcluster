@@ -27,6 +27,7 @@ type VPollSubclusterStateOptions struct {
 
 	SkipOptionsValidation bool
 	SCName                string
+	Timeout               int // timeout for polling, 0 means default
 }
 
 func VPollSubclusterStateOptionsFactory() VPollSubclusterStateOptions {
@@ -116,7 +117,7 @@ func (vcc *VClusterCommands) producePollSubclusterStateInstructions(options *VPo
 		}
 	}
 
-	httpsPollSubclusterNodeOp, err := makeHTTPSPollSubclusterNodeStateUpOp(options.Hosts, options.SCName,
+	httpsPollSubclusterNodeOp, err := makeHTTPSPollSubclusterNodeStateUpOp(options.Hosts, options.SCName, options.Timeout,
 		usePassword, options.UserName, options.Password)
 	if err != nil {
 		return

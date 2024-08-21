@@ -46,6 +46,7 @@ type FetchAllEnvVars interface {
 }
 
 const (
+	RootDir               = "/"
 	NodeInfoCountMismatch = "[%s] expect one node's information, but got %d nodes' information from HTTPS /v1/nodes/<host> endpoint on host %s"
 	DepotSizeHint         = "integer%, which expresses the depot size as a percentage of the total disk size."
 	DepotSizeKMGTMsg      = "integer{K|M|G|T}, where K is kilobytes, M is megabytes, G is gigabytes, and T is terabytes.\n"
@@ -699,4 +700,13 @@ const EmptyConfigParamErrMsg = "configuration parameter must not be empty"
 func IsK8sEnvironment() bool {
 	port, portSet := os.LookupEnv(kubernetesPort)
 	return portSet && port != ""
+}
+
+// GetClusterName can return the correct cluster name based on the sandbox name.
+// It can help people to log the cluster name.
+func GetClusterName(sandbox string) string {
+	if sandbox == "" {
+		return "main cluster"
+	}
+	return "sandbox " + sandbox
 }

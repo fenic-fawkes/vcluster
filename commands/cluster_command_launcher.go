@@ -198,7 +198,8 @@ const (
 	showRestorePointsSubCmd = "show_restore_points"
 	installPkgSubCmd        = "install_packages"
 	// hidden Cmds (for internal testing only)
-	promoteSandboxSubCmd = "promote_sandbox"
+	getDrainingStatusSubCmd = "get_draining_status"
+	promoteSandboxSubCmd    = "promote_sandbox"
 )
 
 // cmdGlobals holds global variables shared by multiple
@@ -562,6 +563,7 @@ func constructCmds() []*cobra.Command {
 		makeCmdReplication(),
 		makeCmdCreateConnection(),
 		// hidden cmds (for internal testing only)
+		makeCmdGetDrainingStatus(),
 		makeCmdPromoteSandbox(),
 	}
 }

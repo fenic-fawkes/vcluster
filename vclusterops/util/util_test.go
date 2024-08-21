@@ -405,3 +405,11 @@ func TestGetEnvInt(t *testing.T) {
 	actual = GetEnvInt(key, fallback)
 	assert.Equal(t, fallback, actual)
 }
+
+func TestGetClusterName(t *testing.T) {
+	cluster := GetClusterName("")
+	assert.Equal(t, "main cluster", cluster)
+
+	cluster = GetClusterName("sand1")
+	assert.Equal(t, "sandbox sand1", cluster)
+}

@@ -22,6 +22,7 @@ const (
 	ShowRestorePointsCmd
 	InstallPackagesCmd
 	ConfigRecoverCmd
+	GetDrainingStatusCmd
 	ManageConnectionDrainingCmd
 	SetConfigurationParameterCmd
 	GetConfigurationParameterCmd
@@ -61,6 +62,7 @@ var cmdStringMap = map[CmdType]string{
 	ShowRestorePointsCmd:         "show_restore_points",
 	InstallPackagesCmd:           "install_packages",
 	ConfigRecoverCmd:             "manage_config_recover",
+	GetDrainingStatusCmd:         "get_draining_status",
 	ManageConnectionDrainingCmd:  "manage_connection_draining",
 	SetConfigurationParameterCmd: "set_configuration_parameter",
 	ReplicationStartCmd:          "replication_start",

@@ -20,6 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path"
 	"regexp"
 	"strings"
 
@@ -413,6 +414,16 @@ func (c *CmdScrutinize) nmaCertLookupFromEnv(logger vlog.Printer) (bool, error) 
 	}
 
 	var err error
+
+	if rootCAPath != "" {
+		rootCAPath = path.Join(util.RootDir, rootCAPath)
+	}
+	if certPath != "" {
+		certPath = path.Join(util.RootDir, certPath)
+	}
+	if keyPath != "" {
+		keyPath = path.Join(util.RootDir, keyPath)
+	}
 
 	c.sOptions.CaCert, err = readNonEmptyFile(rootCAPath)
 	if err != nil {
